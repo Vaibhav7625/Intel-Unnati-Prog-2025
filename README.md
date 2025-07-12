@@ -95,7 +95,7 @@ Built under the **Intel Unnati Programme 2025**, this tool ensures:
 
 ```bash
 git clone <YOUR_GIT_REPO_URL>
-cd intel-1
+cd classroom-spark-ai-mentor
 ```
 
 #### 2️⃣ Install Frontend Dependencies
@@ -148,7 +148,7 @@ The **Engagement** page displays your attentiveness data and graphs for a cleare
 ## 📁 Folder Structure (Simplified)
 
 ```
-intel-1/
+classroom-spark-ai-mentor/
 ├── backend/                 # Python FastAPI backend
 ├── public/
 ├── src/
