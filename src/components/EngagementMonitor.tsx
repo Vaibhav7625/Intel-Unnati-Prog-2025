@@ -70,14 +70,6 @@ export const EngagementMonitor: React.FC = () => {
             className="h-2"
             // Apply dynamic color based on score
           />
-          
-          <div className="flex items-center gap-4 text-sm">
-            <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-muted-foreground" />
-              <span className="text-muted-foreground">Active Students:</span>
-              <span className="font-medium">{studentsActive}/{totalStudents}</span>
-            </div>
-          </div>
         </div>
       </Card>
 
@@ -133,19 +125,23 @@ export const EngagementMonitor: React.FC = () => {
         </div>
       </Card>
 
-      {/* Engagement Suggestions */}
+      {/* Personal Learning Suggestions - Student-focused */}
       <Card className="p-4 shadow-soft border-accent/20">
-        <h4 className="font-semibold text-foreground mb-3">Engagement Suggestions</h4>
+        <h4 className="font-semibold text-foreground mb-3">Personal Learning Tips</h4>
         <div className="space-y-2 text-sm">
           {level === 'low' && (
             <>
               <div className="flex items-start gap-2">
                 <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0" />
-                <span className="text-muted-foreground">Consider switching to visual aids or interactive content</span>
+                <span className="text-muted-foreground">Try adjusting your sitting position and focus on the screen</span>
               </div>
               <div className="flex items-start gap-2">
                 <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0" />
-                <span className="text-muted-foreground">Try asking direct questions to re-engage students</span>
+                <span className="text-muted-foreground">Take short breaks to improve concentration</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0" />
+                <span className="text-muted-foreground">Ask questions if you need clarification</span>
               </div>
             </>
           )}
@@ -153,11 +149,15 @@ export const EngagementMonitor: React.FC = () => {
             <>
               <div className="flex items-start gap-2">
                 <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0" />
-                <span className="text-muted-foreground">Good progress! Consider adding group activities</span>
+                <span className="text-muted-foreground">You're doing well! Try to engage more actively</span>
               </div>
               <div className="flex items-start gap-2">
                 <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0" />
-                <span className="text-muted-foreground">Use AI assistant to provide varied explanations</span>
+                <span className="text-muted-foreground">Take notes to improve comprehension</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0" />
+                <span className="text-muted-foreground">Participate in discussions when possible</span>
               </div>
             </>
           )}
@@ -165,11 +165,15 @@ export const EngagementMonitor: React.FC = () => {
             <>
               <div className="flex items-start gap-2">
                 <div className="w-2 h-2 bg-success rounded-full mt-2 flex-shrink-0" />
-                <span className="text-muted-foreground">Excellent engagement! Students are actively learning</span>
+                <span className="text-muted-foreground">Excellent focus! You're learning effectively</span>
               </div>
               <div className="flex items-start gap-2">
                 <div className="w-2 h-2 bg-success rounded-full mt-2 flex-shrink-0" />
-                <span className="text-muted-foreground">Continue with current teaching approach</span>
+                <span className="text-muted-foreground">Keep up the great engagement and active participation</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <div className="w-2 h-2 bg-success rounded-full mt-2 flex-shrink-0" />
+                <span className="text-muted-foreground">Consider helping classmates who might need support</span>
               </div>
             </>
           )}
