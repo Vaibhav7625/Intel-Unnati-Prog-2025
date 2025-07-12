@@ -1,6 +1,4 @@
-# 📄 Classroom Spark AI Mentor Assistant
-
-![intel-banner](https://user-images.githubusercontent.com/placeholder/intel-banner.png)
+# 🎓 Classroom Spark AI Mentor Assistant
 
 # 🚀 Project Title
 
@@ -10,7 +8,7 @@
 
 ## 📌 Problem Statement
 
-Develop an AI-driven system that supports educators by analyzing student attentiveness and visualizing engagement trends, thereby enhancing the quality of education through real-time insights and intelligent feedback.
+Build a Multimodal AI assistant for classrooms to dynamically answer queries using text, voice, and visuals while improving student engagement with personalized responses.
 
 ---
 
@@ -137,7 +135,7 @@ uvicorn app:app --reload --host 127.0.0.1 --port 8000
 npm run dev
 ```
 
-The frontend will run at: `http://localhost:5173/`
+The frontend will run at: `http://localhost:8080/`
 The backend will run at: `http://127.0.0.1:8000/`
 
 ---
@@ -169,7 +167,6 @@ intel-1/
 │   └── types/
 ├── App.tsx
 ├── main.tsx
-├── vite.config.ts
 ```
 
 ---
