@@ -1,9 +1,5 @@
 # 🎓 Classroom Spark AI Mentor Assistant
 
-# 🚀 Project Title
-
-> **Classroom Spark AI Mentor Assistant**
-
 ---
 
 ## 📌 Problem Statement
