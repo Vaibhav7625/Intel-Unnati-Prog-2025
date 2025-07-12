@@ -365,18 +365,34 @@ class AdvancedClassroomAI:
                 temperature=0.7,
                 do_sample=True,
                 top_p=0.9,
-                repetition_penalty=1.1,
+                repetition_penalty=2.0,
                 early_stopping=True,
                 pad_token_id=self.text_tokenizer.eos_token_id
             )
         
         response = self.text_tokenizer.decode(outputs[0], skip_special_tokens=True)
+        # Remove repetitive phrases and clean up
         response = response.replace(prompt, "").strip()
+        response = self._remove_repetition(response)
         
         if len(response) < 100:
             response = self._enhance_with_conversational_model(query, response)
         
         return response
+    
+    def _remove_repetition(self, text: str) -> str:
+        """Remove repetitive phrases from generated text"""
+        sentences = text.split('. ')
+        unique_sentences = []
+        seen = set()
+        
+        for sentence in sentences:
+            sentence = sentence.strip()
+            if sentence and sentence not in seen and len(sentence) > 10:
+                seen.add(sentence)
+                unique_sentences.append(sentence)
+        
+        return '. '.join(unique_sentences)
     
     def _enhance_with_conversational_model(self, query: str, base_response: str) -> str:
         """Enhance response using conversational model"""

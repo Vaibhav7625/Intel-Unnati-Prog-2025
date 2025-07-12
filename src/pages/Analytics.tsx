@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useEngagement } from '../hooks/EngagementContext';
 
 const Analytics = () => {
-  const { engagementData } = useEngagement();
+  const { engagementData, sessionMetrics } = useEngagement();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50">
@@ -31,7 +31,7 @@ const Analytics = () => {
             </div>
             
             <div className="text-white text-right">
-              <p className="text-sm opacity-90">Engagement Level</p>
+              <p className="text-sm opacity-90">Current Level</p>
               <p className="text-2xl font-bold capitalize">{engagementData.level}</p>
             </div>
           </div>
@@ -40,13 +40,14 @@ const Analytics = () => {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="space-y-6">
-          {/* Engagement Statistics - Now uses real data */}
+          {/* Engagement Statistics - Now uses session overall metrics */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Card className="p-4 bg-gradient-to-br from-blue-400 to-blue-600 text-white shadow-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-blue-100">Attention</p>
-                  <p className="text-2xl font-bold">{engagementData.focusMetrics.attention}%</p>
+                  <p className="text-sm text-blue-100">Session Attention</p>
+                  <p className="text-2xl font-bold">{sessionMetrics.overall.attention}%</p>
+                  <p className="text-xs text-blue-200 mt-1">Overall Average</p>
                 </div>
                 <Eye className="w-8 h-8 text-blue-100" />
               </div>
@@ -55,8 +56,9 @@ const Analytics = () => {
             <Card className="p-4 bg-gradient-to-br from-purple-400 to-purple-600 text-white shadow-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-purple-100">Participation</p>
-                  <p className="text-2xl font-bold">{engagementData.focusMetrics.participation}%</p>
+                  <p className="text-sm text-purple-100">Session Participation</p>
+                  <p className="text-2xl font-bold">{sessionMetrics.overall.participation}%</p>
+                  <p className="text-xs text-purple-200 mt-1">Overall Average</p>
                 </div>
                 <Activity className="w-8 h-8 text-purple-100" />
               </div>
@@ -65,8 +67,9 @@ const Analytics = () => {
             <Card className="p-4 bg-gradient-to-br from-orange-400 to-red-600 text-white shadow-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-orange-100">Comprehension</p>
-                  <p className="text-2xl font-bold">{engagementData.focusMetrics.comprehension}%</p>
+                  <p className="text-sm text-orange-100">Session Comprehension</p>
+                  <p className="text-2xl font-bold">{sessionMetrics.overall.comprehension}%</p>
+                  <p className="text-xs text-orange-200 mt-1">Overall Average</p>
                 </div>
                 <Brain className="w-8 h-8 text-orange-100" />
               </div>
@@ -75,17 +78,22 @@ const Analytics = () => {
             <Card className="p-4 bg-gradient-to-br from-indigo-400 to-purple-600 text-white shadow-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-indigo-100">Overall Score</p>
-                  <p className="text-2xl font-bold">{engagementData.score}%</p>
+                  <p className="text-sm text-indigo-100">Session Score</p>
+                  <p className="text-2xl font-bold">{sessionMetrics.overall.score}%</p>
+                  <p className="text-xs text-indigo-200 mt-1">Overall Average</p>
                 </div>
                 <TrendingUp className="w-8 h-8 text-indigo-100" />
               </div>
             </Card>
           </div>
 
-          {/* Main Engagement Monitor - Now full width */}
+          {/* Main Engagement Monitor - Shows current real-time data */}
           <div className="w-full">
             <Card className="shadow-xl border-0 bg-gradient-to-br from-white to-blue-50">
+              <div className="p-4 border-b border-gray-200">
+                <h2 className="text-xl font-semibold text-gray-800">Real-time Engagement Monitor</h2>
+                <p className="text-sm text-gray-600">Live data from face detection</p>
+              </div>
               <EngagementMonitor />
             </Card>
           </div>

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { AiAssistant } from '@/components/AiAssistant';
 import { Card } from '@/components/ui/card';
@@ -27,22 +26,6 @@ const AiChat = () => {
               <div>
                 <h1 className="text-2xl font-bold text-white">AI Learning Chat</h1>
                 <p className="text-indigo-100">Interactive AI Assistant</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center gap-4">
-              <div className="flex gap-2">
-                {['Mathematics', 'Physics', 'Biology', 'General'].map((subject) => (
-                  <Button
-                    key={subject}
-                    variant={currentSubject === subject ? "secondary" : "ghost"}
-                    size="sm"
-                    onClick={() => setCurrentSubject(subject)}
-                    className="text-white hover:bg-white/20"
-                  >
-                    {subject}
-                  </Button>
-                ))}
               </div>
             </div>
           </div>
