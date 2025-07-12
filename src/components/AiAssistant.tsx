@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Mic, MicOff, Camera, Send, Bot, User, AlertCircle, CheckCircle } from 'lucide-react';
+import { Mic, MicOff, Send, Bot, User, AlertCircle, CheckCircle } from 'lucide-react';
 import { apiService, ChatResponse } from '@/services/api';
 
 interface Message {
@@ -34,7 +34,6 @@ export const AiAssistant: React.FC<AiAssistantProps> = ({ subject = "General", o
   const [inputText, setInputText] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [cameraEnabled, setCameraEnabled] = useState(false);
   const [backendStatus, setBackendStatus] = useState<'connecting' | 'connected' | 'error' | 'not_ready'>('connecting');
   const [conversationHistory, setConversationHistory] = useState<any[]>([]);
   const [healthCheckAttempts, setHealthCheckAttempts] = useState(0);
@@ -279,19 +278,6 @@ export const AiAssistant: React.FC<AiAssistantProps> = ({ subject = "General", o
     }
   };
 
-  const enableCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      setCameraEnabled(true);
-      console.log('Camera enabled for engagement analysis');
-      // Don't forget to stop the stream if not using it
-      stream.getTracks().forEach(track => track.stop());
-    } catch (error) {
-      console.error('Camera access denied:', error);
-      alert('Camera access is needed for engagement analysis');
-    }
-  };
-
   const getStatusColor = () => {
     switch (backendStatus) {
       case 'connected': return 'text-green-500';
@@ -374,15 +360,6 @@ export const AiAssistant: React.FC<AiAssistantProps> = ({ subject = "General", o
             >
               {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
               {isListening ? 'Stop' : 'Voice'}
-            </Button>
-            <Button
-              variant={cameraEnabled ? "secondary" : "outline"}
-              size="sm"
-              onClick={enableCamera}
-              className="flex items-center gap-2"
-            >
-              <Camera className="w-4 h-4" />
-              Camera
             </Button>
           </div>
         </div>
