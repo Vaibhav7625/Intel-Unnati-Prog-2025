@@ -9,6 +9,16 @@ export const FaceEngagement: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [modelStatus, setModelStatus] = useState<string>('Initializing...');
+  
+  // Add participation tracking state
+  const participationRef = useRef({
+    lastDetectionTime: Date.now(),
+    totalDetections: 0,
+    activeDetections: 0,
+    expressionChanges: 0,
+    lastExpression: '',
+    sessionStart: Date.now()
+  });
 
   useEffect(() => {
     let isMounted = true;
@@ -118,6 +128,16 @@ export const FaceEngagement: React.FC = () => {
         setIsLoading(false);
         setModelStatus('Face detection active');
         
+        // Initialize participation tracking
+        participationRef.current = {
+          lastDetectionTime: Date.now(),
+          totalDetections: 0,
+          activeDetections: 0,
+          expressionChanges: 0,
+          lastExpression: '',
+          sessionStart: Date.now()
+        };
+        
         // Step 5: Start face detection
         const startDetection = () => {
           intervalRef.current = setInterval(async () => {
@@ -132,6 +152,9 @@ export const FaceEngagement: React.FC = () => {
                 .withFaceLandmarks()
                 .withFaceExpressions();
 
+              const currentTime = Date.now();
+              const participation = participationRef.current;
+              
               if (detection && detection.expressions && detection.landmarks) {
                 const { 
                   happy = 0, 
@@ -142,6 +165,28 @@ export const FaceEngagement: React.FC = () => {
                   fearful = 0,
                   disgusted = 0
                 } = detection.expressions;
+
+                // Simplified participation tracking
+                participation.totalDetections++;
+                participation.lastDetectionTime = currentTime;
+                
+                // Much simpler participation calculation
+                // Base participation: just being present and detected = 40 points
+                const baseParticipation = 40;
+                
+                // Engagement bonus: any non-sad/angry expression = bonus points
+                const engagementBonus = (happy + surprised + neutral) * 40;
+                
+                // Expression activity: any significant expression = bonus
+                const expressionActivity = Math.max(happy, surprised, neutral) * 30;
+                
+                // Face presence bonus: consistent detection = 10 points
+                const presenceBonus = 10;
+                
+                // Simple participation score (much more generous)
+                const participationScore = Math.min(100, Math.round(
+                  baseParticipation + engagementBonus + expressionActivity + presenceBonus
+                ));
 
                 // Calculate engagement based on expressions
                 const positiveExpressions = happy + surprised;
@@ -184,9 +229,14 @@ export const FaceEngagement: React.FC = () => {
                   }
                 }
                 
-                // Combined engagement score
+                // Much simpler comprehension: neutral + positive expressions
+                const comprehensionScore = Math.min(100, Math.round(
+                  (neutralExpression * 60) + (positiveExpressions * 40) + 20 // Base 20 points
+                ));
+                
+                // More generous overall engagement calculation
                 const engagementScore = Math.round(
-                  (expressionScore * 0.4 + attentionScore * 0.3 + gazeScore * 0.3)
+                  (expressionScore * 0.25 + attentionScore * 0.25 + participationScore * 0.25 + comprehensionScore * 0.25)
                 );
 
                 let level: 'high' | 'medium' | 'low' = 'low';
@@ -200,8 +250,8 @@ export const FaceEngagement: React.FC = () => {
                     level,
                     focusMetrics: {
                       attention: Math.round(gazeScore),
-                      participation: Math.round(positiveExpressions * 100),
-                      comprehension: Math.round(neutralExpression * 100),
+                      participation: Math.max(0, Math.min(100, participationScore)),
+                      comprehension: Math.max(0, Math.min(100, comprehensionScore)),
                     },
                   }));
                 }
@@ -212,13 +262,21 @@ export const FaceEngagement: React.FC = () => {
                   expressions: {
                     happy: Math.round(happy * 100),
                     neutral: Math.round(neutral * 100),
-                    negative: Math.round(negativeExpressions * 100)
+                    surprised: Math.round(surprised * 100)
                   },
+                  participation: participationScore,
+                  comprehension: comprehensionScore,
                   gaze: Math.round(gazeScore)
                 });
                 
               } else {
                 console.log('No face detected');
+                // Reset participation tracking when no face is detected
+                const timeSinceLastDetection = currentTime - participation.lastDetectionTime;
+                if (timeSinceLastDetection > 5000) { // 5 seconds
+                  participation.expressionChanges = Math.max(0, participation.expressionChanges - 1);
+                }
+                
                 if (isMounted) {
                   setEngagementData(data => ({
                     ...data,
@@ -226,7 +284,7 @@ export const FaceEngagement: React.FC = () => {
                     level: 'low',
                     focusMetrics: {
                       attention: 0,
-                      participation: 0,
+                      participation: Math.max(0, data.focusMetrics.participation - 5), // Slower decrease
                       comprehension: 0,
                     },
                   }));
