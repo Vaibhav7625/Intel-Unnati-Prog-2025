@@ -17,7 +17,7 @@ transformers==4.37.2
 tokenizers==0.14.1                  # ✅ Compatible + no Rust build
 diffusers==0.25.0
 accelerate==0.24.1
-safetensors==0.3.3                  # ✅ Avoids maturin build issues
+safetensors >= 0.4.1
 huggingface_hub==0.19.4
 sentencepiece==0.1.99
 protobuf==3.20.3
