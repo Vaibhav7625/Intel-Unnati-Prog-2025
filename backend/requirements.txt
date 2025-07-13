@@ -14,11 +14,11 @@ torchaudio==2.7.1+cpu
 
 # AI and ML dependencies
 transformers==4.37.2
-tokenizers==0.14.1                  # ✅ Compatible + no Rust build
+tokenizers==0.15.1
 diffusers==0.25.0
 accelerate==0.24.1
 safetensors >= 0.4.1
-huggingface_hub==0.19.4
+huggingface_hub==0.20.3  # ✅ Compatible with both transformers & tokenizers
 sentencepiece==0.1.99
 protobuf==3.20.3
 
