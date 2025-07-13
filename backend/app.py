@@ -74,8 +74,7 @@ print("🚀 Starting AI model initialization in background...")
 threading.Thread(target=initialize_ai, daemon=True).start()
 
 # Serve generated images
-if not os.path.exists("generated_images"):
-    os.makedirs("generated_images")
+os.makedirs("generated_images", exist_ok=True)
 app.mount("/images", StaticFiles(directory="generated_images"), name="images")
 
 # Pydantic models for API
