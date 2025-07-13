@@ -23,7 +23,7 @@ sentencepiece==0.1.99
 protobuf==3.20.3
 
 # Image processing
-Pillow==10.1.0
+Pillow==9.5.0
 opencv-python==4.8.1.78
 
 # Data processing and visualization
