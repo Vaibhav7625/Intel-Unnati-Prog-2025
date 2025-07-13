@@ -7,23 +7,23 @@ uvicorn[standard]==0.24.0
 python-multipart==0.0.6
 python-dotenv==1.0.0
 
-# Torch stack (confirmed available on Render CPU)
-torch==2.5.1+cpu
+# Torch stack (fully aligned + CPU-safe)
+torch==2.7.1+cpu
 torchvision==0.22.1+cpu
 torchaudio==2.7.1+cpu
 
 # AI and ML dependencies
 transformers==4.37.2
-tokenizers==0.13.3               # prevents maturin build
+tokenizers==0.14.1                  # ✅ Compatible + no Rust build
 diffusers==0.25.0
 accelerate==0.24.1
-safetensors==0.3.3               # ✅ downgrade to avoid Rust/maturin
+safetensors==0.3.3                  # ✅ Avoids maturin build issues
 huggingface_hub==0.19.4
 sentencepiece==0.1.99
 protobuf==3.20.3
 
 # Image processing
-Pillow==9.5.0
+Pillow==9.5.0                       # ✅ Prebuilt wheels exist
 opencv-python==4.8.1.78
 
 # Data processing and visualization
@@ -34,5 +34,5 @@ seaborn==0.12.2
 
 # Other dependencies
 requests==2.31.0
-pydantic==1.10.12                # ✅ avoids maturin/Rust
-typing-extensions==4.8.0
+pydantic==1.10.12                  # ✅ No maturin/Rust
+typing-extensions==4.11.0          # ✅ Required by torch>=2.7
