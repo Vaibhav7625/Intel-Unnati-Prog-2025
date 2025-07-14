@@ -105,6 +105,10 @@ export const AiAssistant: React.FC<AiAssistantProps> = ({ subject = "General", o
   }, []);
 
   const checkBackendStatus = async () => {
+    if (isProcessing) {
+      console.log('🛑 Skipping health check during active processing');
+      return;
+    }
     try {
       console.log('Checking backend status...');
       const health = await apiService.checkHealth();
