@@ -8,8 +8,9 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
-# Create local cache folders
-RUN mkdir -p /app/hf_cache /app/hf_cache/mpl
+# Create local cache folders and ensure they're writable
+RUN mkdir -p /app/hf_cache/mpl && \
+    chmod -R 777 /app/hf_cache
 
 # Set env vars to force cache to writable directories
 ENV TRANSFORMERS_CACHE=/app/hf_cache
