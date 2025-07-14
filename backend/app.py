@@ -12,6 +12,7 @@ import base64
 from datetime import datetime
 import threading
 import time
+import tempfile
 from ai_models import AdvancedClassroomAI
 
 # Initialize FastAPI app
@@ -74,8 +75,8 @@ print("🚀 Starting AI model initialization in background...")
 threading.Thread(target=initialize_ai, daemon=True).start()
 
 # Serve generated images
-os.makedirs("generated_images", exist_ok=True)
-app.mount("/images", StaticFiles(directory="generated_images"), name="images")
+os.makedirs(os.path.join(tempfile.gettempdir(), "generated_images"), exist_ok=True)
+app.mount("/images", StaticFiles(directory=os.path.join(tempfile.gettempdir(), "generated_images")), name="images")
 
 # Pydantic models for API
 class ChatRequest(BaseModel):
@@ -170,7 +171,7 @@ async def chat(request: ChatRequest):
         image_url = None
         if result.get('visual_image'):
             # Get the most recent image from the directory
-            images_dir = "generated_images"
+            images_dir = os.path.join(tempfile.gettempdir(), "generated_images")
             if os.path.exists(images_dir):
                 image_files = [f for f in os.listdir(images_dir) if f.endswith('.png')]
                 if image_files:
@@ -300,7 +301,7 @@ async def clear_history():
 @app.get("/images/list")
 async def list_images():
     try:
-        images_dir = "generated_images"
+        images_dir = os.path.join(tempfile.gettempdir(), "generated_images")
         if not os.path.exists(images_dir):
             return {"images": []}
         

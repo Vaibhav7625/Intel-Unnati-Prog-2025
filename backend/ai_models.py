@@ -24,6 +24,7 @@ import warnings
 import time
 import os
 from datetime import datetime
+import tempfile
 warnings.filterwarnings('ignore')
 
 class AdvancedClassroomAI:
@@ -41,7 +42,7 @@ class AdvancedClassroomAI:
         
         # Create directories for saving images
         if self.save_images:
-            self.images_dir = "generated_images"
+            self.images_dir = os.path.join(tempfile.gettempdir(), "generated_images")
             os.makedirs(self.images_dir, exist_ok=True)
             print(f"📁 Images will be saved to: {self.images_dir}/")
         

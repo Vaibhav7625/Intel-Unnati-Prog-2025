@@ -10,7 +10,9 @@ WORKDIR /app
 
 # Create local cache folders and ensure they're writable
 RUN mkdir -p /app/hf_cache/mpl && \
-    chmod -R 777 /app/hf_cache
+    chmod -R 777 /app/hf_cache && \
+    mkdir -p /app/generated_images && \
+    chmod -R 777 /app/generated_images
 
 # Set env vars to force cache to writable directories
 ENV TRANSFORMERS_CACHE=/app/hf_cache
