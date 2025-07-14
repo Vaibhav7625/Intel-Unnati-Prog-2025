@@ -179,7 +179,7 @@ export const AiAssistant: React.FC<AiAssistantProps> = ({ subject = "General", o
         processingInfoIdRef.current = null;
       }
       setIsProcessing(false);
-      isProcessingRef.current = true;
+      isProcessingRef.current = false;
       setConsecutiveTimeout(false);
 
       console.log('Received response:', response);
@@ -211,7 +211,7 @@ export const AiAssistant: React.FC<AiAssistantProps> = ({ subject = "General", o
       }
     } catch (error) {
       setIsProcessing(false);
-      isProcessingRef.current = true;
+      isProcessingRef.current = false;
       console.error('Error sending message:', error);
       // Check if this is a connection error - might need to update status
       if (error instanceof Error && error.message.includes('fetch')) {
