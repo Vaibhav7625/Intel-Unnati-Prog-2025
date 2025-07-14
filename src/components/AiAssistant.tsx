@@ -44,6 +44,7 @@ export const AiAssistant: React.FC<AiAssistantProps> = ({ subject = "General", o
   // Track if a real error should be shown after a second failure
   const [consecutiveTimeout, setConsecutiveTimeout] = useState(false);
   
+  const isProcessingRef = useRef(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const recognitionRef = useRef<any>(null);
   const healthCheckIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -105,7 +106,7 @@ export const AiAssistant: React.FC<AiAssistantProps> = ({ subject = "General", o
   }, []);
 
   const checkBackendStatus = async () => {
-    if (isProcessing) {
+    if (isProcessingRef.current) {
       console.log('🛑 Skipping health check during active processing');
       return;
     }
@@ -160,6 +161,7 @@ export const AiAssistant: React.FC<AiAssistantProps> = ({ subject = "General", o
     setInputText('');
     setIsLoading(true);
     setIsProcessing(true);
+    isProcessingRef.current = true;
 
     try {
       console.log('Sending message to backend...');
@@ -177,6 +179,7 @@ export const AiAssistant: React.FC<AiAssistantProps> = ({ subject = "General", o
         processingInfoIdRef.current = null;
       }
       setIsProcessing(false);
+      isProcessingRef.current = true;
       setConsecutiveTimeout(false);
 
       console.log('Received response:', response);
@@ -208,6 +211,7 @@ export const AiAssistant: React.FC<AiAssistantProps> = ({ subject = "General", o
       }
     } catch (error) {
       setIsProcessing(false);
+      isProcessingRef.current = true;
       console.error('Error sending message:', error);
       // Check if this is a connection error - might need to update status
       if (error instanceof Error && error.message.includes('fetch')) {
