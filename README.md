@@ -16,7 +16,7 @@ Current education systems lack tools that give teachers visibility into real-tim
 Built under the **Intel Unnati Programme 2025**, this tool ensures:
 
 * **Live engagement tracking** with face detection.
-* **Realtime graphs and stats** on student focus.
+* **Realtime stats** on student focus.
 * **Interactive AI Chat Assistant** to support educators and learners.
 
 ---
@@ -73,9 +73,10 @@ Built under the **Intel Unnati Programme 2025**, this tool ensures:
 
 ---
 
-## 📽️ Demo
+## 🚀 Deployed Project
 
-*Coming soon or provided upon request.*
+Access the live deployment here:  
+🔗 [https://ai-frontend-b4ro.onrender.com/](https://ai-frontend-b4ro.onrender.com/)
 
 ---
 
@@ -136,6 +137,23 @@ The backend will run at: `http://127.0.0.1:8000/`
 
 ---
 
+## 🐳 Docker Deployment (Backend Only)
+
+### Build and Run the FastAPI Backend with Docker:
+
+```bash
+cd backend
+docker build -t classroom-spark-ai-mentor-backend .
+docker run -p 8000:8000 classroom-spark-ai-mentor-backend
+```
+
+The backend will be accessible at: http://localhost:8000
+
+> ⚠️ Note: This Docker setup is only for the FastAPI backend.
+> The frontend must still be started manually in the way mentioned previously, from the root folder.
+
+---
+
 ## 📸 Camera Permissions Required
 
 This project requires **webcam access** to perform real-time engagement detection.
@@ -185,7 +203,7 @@ classroom-spark-ai-mentor/
 
 ---
 
-> "Technology is best when it brings people together to learn better."
+> “Education is the most powerful weapon which you can use to change the world.” — Nelson Mandela
 
 ---
 
