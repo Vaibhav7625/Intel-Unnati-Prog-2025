@@ -8,6 +8,17 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
+# Create local cache folders
+RUN mkdir -p /app/hf_cache /app/hf_cache/mpl
+
+# Set env vars to force cache to writable directories
+ENV TRANSFORMERS_CACHE=/app/hf_cache
+ENV HF_HOME=/app/hf_cache
+ENV XDG_CACHE_HOME=/app/hf_cache
+ENV DIFFUSERS_CACHE=/app/hf_cache
+ENV TORCH_HOME=/app/hf_cache
+ENV MPLCONFIGDIR=/app/hf_cache/mpl
+
 # Copy code
 COPY . .
 
