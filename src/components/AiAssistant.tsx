@@ -129,7 +129,10 @@ export const AiAssistant: React.FC<AiAssistantProps> = ({ subject = "General", o
       console.error('Backend connection error:', error);
       setHealthCheckAttempts(prev => prev + 1);
       if (!isProcessing) {
-        setBackendStatus('error');
+        // Optional: debounce error marking to avoid false alerts
+        setTimeout(() => {
+          setBackendStatus(prev => prev === 'connected' ? 'error' : prev);
+        }, 2000); // 2 seconds delay
       }
     }
   };
@@ -203,8 +206,12 @@ export const AiAssistant: React.FC<AiAssistantProps> = ({ subject = "General", o
       setIsProcessing(false);
       console.error('Error sending message:', error);
       // Check if this is a connection error - might need to update status
-      if (error instanceof Error && error.message.includes('fetch') && !isProcessing) {
-        setBackendStatus('error');
+      if (error instanceof Error && error.message.includes('fetch')) {
+        if (!isProcessing) {
+          setBackendStatus('error');
+        } else {
+          console.warn('Fetch error occurred but backend is still processing. Suppressing error state.');
+        }
       }
       // Only show a processing info message on first timeout, not an error
       if (error instanceof Error && error.message.toLowerCase().includes('timeout')) {
