@@ -144,10 +144,10 @@ The backend will run at: `http://127.0.0.1:8000/`
 ```bash
 cd backend
 docker build -t classroom-spark-ai-mentor-backend .
-docker run -p 8000:8000 classroom-spark-ai-mentor-backend
+docker run -p 7860:7860 classroom-spark-ai-mentor-backend
 ```
 
-The backend will be accessible at: http://localhost:8000
+The backend will be accessible at: http://localhost:7860
 
 > ⚠️ Note: This Docker setup is only for the FastAPI backend.
 > The frontend must still be started manually in the way mentioned previously, from the root folder.
